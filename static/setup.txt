@@ -1,0 +1,24 @@
+plugin.tx_t3blog_pi2 {
+	tx_jft3blogwidget_jquerycalendar {
+		includeLibs = EXT:jft3blogwidget/widgets/jquerycalendar/class.tx_jft3blogwidget_jquerycalendar.php
+
+		datepicker = COA
+		datepicker {
+			10 = TEXT
+			10.wrap = <div id="datepicker"> | </div>
+		}
+
+		jQueryNoConflict = {$plugin.tx_jft3blogwidget.jQueryNoConflict}
+		jsInFooter = {$plugin.tx_jft3blogwidget.jsInFooter}
+		jsMinify = {$plugin.tx_jft3blogwidget.jsMinify}
+		jsInline = {$plugin.tx_jft3blogwidget.jsInline}
+		cssMinify = {$plugin.tx_jft3blogwidget.cssMinify}
+	
+		templateFileJS = {$plugin.tx_jft3blogwidget.file.templateFileJS}
+		jQueryLibrary = {$plugin.tx_jft3blogwidget.file.jQueryLibrary}
+		jQueryUI = {$plugin.tx_jft3blogwidget.file.jQueryUI}
+		jQueryUIstyle = {$plugin.tx_jft3blogwidget.file.jQueryUIstyle}
+	}
+}
+
+plugin.tx_t3blog_pi1.tx_jft3blogwidget_jquerycalendar < plugin.tx_t3blog_pi2.tx_jft3blogwidget_jquerycalendar
