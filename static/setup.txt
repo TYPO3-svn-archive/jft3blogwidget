@@ -1,6 +1,6 @@
 plugin.tx_t3blog_pi2 {
 	tx_jft3blogwidget_jquerycalendar {
-		includeLibs = EXT:jft3blogwidget/widgets/jquerycalendar/class.tx_jft3blogwidget_jquerycalendar.php
+		includeLibs = EXT:jft3blogwidget/widgets/tx_jft3blogwidget_jquerycalendar/class.tx_jft3blogwidget_jquerycalendar.php
 
 		datepicker = COA
 		datepicker {

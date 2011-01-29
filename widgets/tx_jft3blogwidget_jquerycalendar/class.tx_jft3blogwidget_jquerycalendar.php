@@ -29,7 +29,7 @@
  * @package TYPO3
  * @subpackage tx_jft3blogwidget
  */
-class tx_jft3blogwidget_jquerycalendar
+class tx_jft3blogwidget_jquerycalendar extends tslib_pibase
 {
 	/**
 	 * @var array
@@ -96,7 +96,6 @@ class tx_jft3blogwidget_jquerycalendar
 		$this->cObj = $cObj;
 		$this->blogConfig = $GLOBALS['TSFE']->tmpl->setup['plugin.']['tx_t3blog_pi1.'];
 		$this->blogConfig['calendar.']['dateLink.']['typolink.']['returnLast'] = 'url';
-
 		// The template for JS
 		if (! $this->templateFileJS = $this->cObj->fileResource($this->conf['templateFileJS'])) {
 			$this->templateFileJS = $this->cObj->fileResource("EXT:jft3blogwidget/res/tx_jft3blogwidget.js");
@@ -377,8 +376,8 @@ class tx_jft3blogwidget_jquerycalendar
 	}
 }
 
-if (defined('TYPO3_MODE') && $TYPO3_CONF_VARS[TYPO3_MODE]['XCLASS']['ext/jft3blogwidget/class.tx_jft3blogwidget_jquerycalendar.php']) {
-	include_once($TYPO3_CONF_VARS[TYPO3_MODE]['XCLASS']['ext/jft3blogwidget/class.tx_jft3blogwidget_jquerycalendar.php']);
+if (defined('TYPO3_MODE') && $TYPO3_CONF_VARS[TYPO3_MODE]['XCLASS']['ext/jft3blogwidget/widgets/tx_jft3blogwidget_jquerycalendar/class.tx_jft3blogwidget_jquerycalendar.php']) {
+	include_once($TYPO3_CONF_VARS[TYPO3_MODE]['XCLASS']['ext/jft3blogwidget/widgets/tx_jft3blogwidget_jquerycalendar/class.tx_jft3blogwidget_jquerycalendar.php']);
 }
 
 ?>

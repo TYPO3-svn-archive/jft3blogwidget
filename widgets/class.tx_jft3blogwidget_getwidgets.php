@@ -39,7 +39,7 @@ class tx_jft3blogwidget_getwidgets
 	 */
 	public function getWidgets(array $unusedParams) {
 		return array(
-			'tx_jft3blogwidget_jquerycalendar' => 'EXT:jft3blogwidget/widgets/jquerycalendar/',
+			'tx_jft3blogwidget_jquerycalendar' => 'EXT:jft3blogwidget/widgets/tx_jft3blogwidget_jquerycalendar/',
 		);
 	}
 }
