@@ -29,7 +29,7 @@
  * @package TYPO3
  * @subpackage tx_jft3blogwidget
  */
-class tx_jft3blogwidget_jquerycalendar extends tslib_pibase
+class tx_jft3blogwidget_archive extends tslib_pibase
 {
 	/**
 	 * @var array
@@ -141,9 +141,7 @@ class tx_jft3blogwidget_jquerycalendar extends tslib_pibase
 			tx_t3jquery::addJqJS();
 		} else {
 			$this->addJsFile($this->conf['jQueryLibrary']);
-			$this->addJsFile($this->conf['jQueryUI']);
 		}
-		$this->addCssFile($this->conf['jQueryUIstyle']);
 		$this->addJS($templateCode);
 
 		$this->addResources();
@@ -382,8 +380,8 @@ class tx_jft3blogwidget_jquerycalendar extends tslib_pibase
 	}
 }
 
-if (defined('TYPO3_MODE') && $TYPO3_CONF_VARS[TYPO3_MODE]['XCLASS']['ext/jft3blogwidget/widgets/tx_jft3blogwidget_jquerycalendar/class.tx_jft3blogwidget_jquerycalendar.php']) {
-	include_once($TYPO3_CONF_VARS[TYPO3_MODE]['XCLASS']['ext/jft3blogwidget/widgets/tx_jft3blogwidget_jquerycalendar/class.tx_jft3blogwidget_jquerycalendar.php']);
+if (defined('TYPO3_MODE') && $TYPO3_CONF_VARS[TYPO3_MODE]['XCLASS']['ext/jft3blogwidget/widgets/tx_jft3blogwidget_archive/class.tx_jft3blogwidget_archive.php']) {
+	include_once($TYPO3_CONF_VARS[TYPO3_MODE]['XCLASS']['ext/jft3blogwidget/widgets/tx_jft3blogwidget_archive/class.tx_jft3blogwidget_archive.php']);
 }
 
 ?>
