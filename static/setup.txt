@@ -2,22 +2,22 @@ plugin.tx_t3blog_pi2 {
 	tx_jft3blogwidget_jquerycalendar {
 		includeLibs = EXT:jft3blogwidget/widgets/tx_jft3blogwidget_jquerycalendar/class.tx_jft3blogwidget_jquerycalendar.php
 
+		jQueryNoConflict = {$plugin.tx_jft3blogwidget.jquerycalendar.jQueryNoConflict}
+		jsInFooter = {$plugin.tx_jft3blogwidget.jquerycalendar.jsInFooter}
+		jsMinify = {$plugin.tx_jft3blogwidget.jquerycalendar.jsMinify}
+		jsInline = {$plugin.tx_jft3blogwidget.jquerycalendar.jsInline}
+		cssMinify = {$plugin.tx_jft3blogwidget.jquerycalendar.cssMinify}
+	
+		templateFileJS = {$plugin.tx_jft3blogwidget.jquerycalendar.file.templateFileJS}
+		jQueryLibrary = {$plugin.tx_jft3blogwidget.jquerycalendar.file.jQueryLibrary}
+		jQueryUI = {$plugin.tx_jft3blogwidget.jquerycalendar.file.jQueryUI}
+		jQueryUIstyle = {$plugin.tx_jft3blogwidget.jquerycalendar.file.jQueryUIstyle}
+
 		datepicker = COA
 		datepicker {
 			10 = TEXT
 			10.wrap = <div id="datepicker"> | </div>
 		}
-
-		jQueryNoConflict = {$plugin.tx_jft3blogwidget.jQueryNoConflict}
-		jsInFooter = {$plugin.tx_jft3blogwidget.jsInFooter}
-		jsMinify = {$plugin.tx_jft3blogwidget.jsMinify}
-		jsInline = {$plugin.tx_jft3blogwidget.jsInline}
-		cssMinify = {$plugin.tx_jft3blogwidget.cssMinify}
-	
-		templateFileJS = {$plugin.tx_jft3blogwidget.file.templateFileJS}
-		jQueryLibrary = {$plugin.tx_jft3blogwidget.file.jQueryLibrary}
-		jQueryUI = {$plugin.tx_jft3blogwidget.file.jQueryUI}
-		jQueryUIstyle = {$plugin.tx_jft3blogwidget.file.jQueryUIstyle}
 	}
 }
 

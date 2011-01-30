@@ -125,6 +125,11 @@ class tx_jft3blogwidget_jquerycalendar extends tslib_pibase
 				$markerArray["DATE"] = $date['day'];
 				$markerArray["LINK"] = $link;
 				$markerArray["COUNT"] = $date['counter'];
+				$class = '';
+				if (strtotime($date['day']) >= strtotime($this->piVars['blogList']['datefrom']) && strtotime($date['day']) <= strtotime($this->piVars['blogList']['dateto'])) {
+					$class = 'ui-state-highlight';
+				}
+				$markerArray["CLASS"] = $class;
 				$dateArray[] = $this->cObj->substituteMarkerArray($dateItem, $markerArray, '###|###', 0);
 				$key ++;
 			}
