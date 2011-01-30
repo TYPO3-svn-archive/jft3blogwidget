@@ -19,7 +19,10 @@ plugin.tx_t3blog_pi2 {
 			10.wrap = <div id="datepicker"> | </div>
 		}
 	}
-/*
+}
+plugin.tx_t3blog_pi1.tx_jft3blogwidget_jquerycalendar < plugin.tx_t3blog_pi2.tx_jft3blogwidget_jquerycalendar
+
+plugin.tx_t3blog_pi2 {
 	tx_jft3blogwidget_archive {
 		includeLibs = EXT:jft3blogwidget/widgets/tx_jft3blogwidget_archive/class.tx_jft3blogwidget_archive.php
 
@@ -29,17 +32,8 @@ plugin.tx_t3blog_pi2 {
 		jsInline = {$plugin.tx_jft3blogwidget.jsInline}
 		cssMinify = {$plugin.tx_jft3blogwidget.cssMinify}
 	
-		templateFileJS = {$plugin.tx_jft3blogwidget.file.templateFileJS}
 		jQueryLibrary = {$plugin.tx_jft3blogwidget.file.jQueryLibrary}
-
-		datepicker = COA
-		datepicker {
-			10 = TEXT
-			10.wrap = <div id="datepicker"> | </div>
-		}
+		jQueryCookies = {$plugin.tx_jft3blogwidget.file.jQueryCookies}
 	}
-*/
 }
-
-plugin.tx_t3blog_pi1.tx_jft3blogwidget_jquerycalendar < plugin.tx_t3blog_pi2.tx_jft3blogwidget_jquerycalendar
-// plugin.tx_t3blog_pi1.tx_jft3blogwidget_archive < plugin.tx_t3blog_pi2.tx_jft3blogwidget_archive
+plugin.tx_t3blog_pi1.tx_jft3blogwidget_archive < plugin.tx_t3blog_pi2.tx_jft3blogwidget_archive

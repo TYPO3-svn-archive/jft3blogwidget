@@ -22,6 +22,8 @@
 *  This copyright notice MUST APPEAR in all copies of the script!
 ***************************************************************/
 
+require_once(t3lib_extMgm::extPath('t3blog').'pi1/widgets/archive/class.archive.php');
+
 /**
  * This class embeds the jQuery UI Calendar to T3BLOG.
  *
@@ -29,144 +31,83 @@
  * @package TYPO3
  * @subpackage tx_jft3blogwidget
  */
-class tx_jft3blogwidget_archive extends tslib_pibase
+class tx_jft3blogwidget_archive extends archive
 {
-	/**
-	 * @var array
-	 */
-	public $conf = array();
+	public $prefixId      = 'tx_jft3blogwidget_archive';
+	public $scriptRelPath = 'widgets/tx_jft3blogwidget_archive/class.tx_jft3blogwidget_archive.php';
+	public $extKey        = 'jft3blogwidget';
 
 	/**
-	 * @var array
-	 */
-	public $piVars = array();
-
-	/**
-	 * @var array
-	 */
-	public $cObj = array();
-
-	/**
-	 * @var array
-	 */
-	public $blogConfig = array();
-	
-	/**
-	 * @var string
-	 */
-	private $templateFileJS = null;
-
-	/**
-	 * @var string
-	 */
-	private $contentKey = null;
-
-	/**
-	 * @var array
-	 */
-	private $jsFiles = array();
-
-	/**
-	 * @var array
-	 */
-	private $js = array();
-
-	/**
-	 * @var array
-	 */
-	private $cssFiles = array();
-
-	/**
-	 * @var array
-	 */
-	private $css = array();
-
-	/**
-	 * Produces the output.
+	 * The main method of the PlugIn
+	 * @author 	snowflake <typo3@snowflake.ch>
 	 *
-	 * @param string $unused
-	 * @param array $conf
-	 * @param array $piVars
-	 * @param tslib_cObj $cObj
+	 * @param	string		$content: The PlugIn content
+	 * @param	array		$conf: The PlugIn configuration
+	 * @return	The content that is displayed on the website
 	 */
-	public function main($unused, array $conf, $piVars, tslib_cObj $cObj)
+	function main($content, $conf, $piVars)
 	{
-		$this->conf = $conf;
-		$this->piVars = $piVars;
-		$this->cObj = $cObj;
-		$this->blogConfig = $GLOBALS['TSFE']->tmpl->setup['plugin.']['tx_t3blog_pi1.'];
-		$this->blogConfig['calendar.']['dateLink.']['typolink.']['returnLast'] = 'url';
-		// The template for JS
-		if (! $this->templateFileJS = $this->cObj->fileResource($this->conf['templateFileJS'])) {
-			$this->templateFileJS = $this->cObj->fileResource("EXT:jft3blogwidget/res/tx_jft3blogwidget.js");
-		}
+		$this->archiveConf = $conf;
+		$this->conf = $GLOBALS['TSFE']->tmpl->setup['plugin.']['tx_t3blog_pi1.']['archive.'];
 
-		if (! $templateCode = trim($this->cObj->getSubpart($this->templateFileJS, "###TEMPLATE_CALENDAR_JS###"))) {
-			$templateCode = $this->outputError("Template TEMPLATE_CALENDAR_JS is missing", true);
+		$this->init();
+		list($firstYear, $lastYear) = $this->getFirstAndLastYear();
+		for ($this->currentYear = $firstYear; $this->currentYear >= $lastYear; $this->currentYear--) {
+			$this->processOneYear();
 		}
+		$content = $this->assembleContent();
 
-		$dateItem = trim($this->cObj->getSubpart($templateCode, "###DATES_ITEM###"));
-		$blogdates = $this->getBlogDates();
-		$dateArray = array();
-		$key = 0;
-		if (count($blogdates) > 0) {
-			foreach ($blogdates as $date) {
-				$link = t3blog_div::getSingle(
-					array(
-						'day' => "1",
-						'date'=> $date['day'],
-						'blogUid' => t3blog_div::getBlogPid()
-					),
-					'dateLink',
-					$this->blogConfig['calendar.']
-				);
-				$markerArray = array();
-				$markerArray["KEY"] = $key;
-				$markerArray["DATE"] = $date['day'];
-				$markerArray["LINK"] = $link;
-				$markerArray["COUNT"] = $date['counter'];
-				$class = '';
-				if (strtotime($date['day']) >= strtotime($this->piVars['blogList']['datefrom']) && strtotime($date['day']) <= strtotime($this->piVars['blogList']['dateto'])) {
-					$class = 'ui-state-highlight';
-				}
-				$markerArray["CLASS"] = $class;
-				$dateArray[] = $this->cObj->substituteMarkerArray($dateItem, $markerArray, '###|###', 0);
-				$key ++;
+		$openBlock = t3lib_div::slashJS($this->conf['toggle.']['open']);
+		$closeBlock = t3lib_div::slashJS($this->conf['toggle.']['close']);
+
+		$js = "
+jQuery(document).ready(function() {
+	jQuery(\"a[id^='toggle']\").each(function() {
+		var year = this.id.substr(6);
+		if(jQuery.cookie('archive_'+year)=='1') {
+			jQuery('#archive_'+year).slideUp('fast');
+			jQuery('#'+this.id).text('{$closeBlock}');
+		} else {
+			jQuery('#'+this.id).text('{$openBlock}');
+		}
+		jQuery('#'+this.id).click(function() {
+			if(jQuery('#'+this.id).text()=='{$openBlock}') {
+				jQuery('#archive_'+year).slideUp('fast');
+				jQuery.cookie('archive_'+year,'1',{ path:'/'});
+				jQuery('#'+this.id).text('{$closeBlock}');
+			} else {
+				jQuery('#archive_'+year).slideDown('fast');
+				jQuery.cookie('archive_'+year,'0',{ path:'/'});
+				jQuery('#'+this.id).text('{$openBlock}');
 			}
-		}
-		$templateCode = trim($this->cObj->substituteSubpart($templateCode, '###DATES_ITEM###', implode('', $dateArray), 0));
+			return false;
+		});
+	});
+});";
 
 		// Add all CSS and JS files
 		if (T3JQUERY === true) {
 			tx_t3jquery::addJqJS();
 		} else {
-			$this->addJsFile($this->conf['jQueryLibrary']);
+			$this->addJsFile($this->archiveConf['jQueryLibrary']);
 		}
-		$this->addJS($templateCode);
+		$this->addJsFile($this->archiveConf['jQueryCookies']);
+		$this->addJS($js);
 
 		$this->addResources();
 
-		return $cObj->cObjGetSingle($this->conf['datepicker'], $this->conf['datepicker.']);
+		return $content;
 	}
 
 	/**
-	 * Select all dates with blogentries
-	 * 
-	 * @return array
+	 * Creates a common javascript for toggling nodes.
+	 *
+	 * @param  string $id
+	 * @return string
 	 */
-	private function getBlogDates()
+	protected function getToggleJS($id)
 	{
-		$rows = $GLOBALS['TYPO3_DB']->exec_SELECTgetRows(
-			'count(*) AS counter, DATE(FROM_UNIXTIME(date)) as day',
-			'tx_t3blog_post',
-			'pid=' . t3blog_div::getBlogPid() . $this->cObj->enableFields('tx_t3blog_post'),
-			'day',
-			'',
-			'',
-			'day'
-		);
-
-		return $rows;
+		return '';
 	}
 
 	/**

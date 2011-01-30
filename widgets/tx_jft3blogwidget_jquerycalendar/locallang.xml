@@ -6,7 +6,7 @@
 	</meta>
 	<data type="array">
 		<languageKey index="default" type="array">
-			<label index="title">jCalendar</label>
+			<label index="title">Calendar</label>
 			<label index="widgetSelector.description">jQuery UI Calendar for T3BLOG</label>
 		</languageKey>
 	</data>

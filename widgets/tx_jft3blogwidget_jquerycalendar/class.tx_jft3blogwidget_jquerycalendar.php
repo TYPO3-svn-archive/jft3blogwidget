@@ -31,54 +31,18 @@
  */
 class tx_jft3blogwidget_jquerycalendar extends tslib_pibase
 {
-	/**
-	 * @var array
-	 */
+	public $prefixId      = 'tx_jft3blogwidget_jquerycalendar';
+	public $scriptRelPath = 'widgets/tx_jft3blogwidget_archive/class.tx_jft3blogwidget_jquerycalendar.php';
+	public $extKey        = 'jft3blogwidget';
 	public $conf = array();
-
-	/**
-	 * @var array
-	 */
 	public $piVars = array();
-
-	/**
-	 * @var array
-	 */
 	public $cObj = array();
-
-	/**
-	 * @var array
-	 */
-	public $blogConfig = array();
-	
-	/**
-	 * @var string
-	 */
+	public $blogConf = array();
 	private $templateFileJS = null;
-
-	/**
-	 * @var string
-	 */
 	private $contentKey = null;
-
-	/**
-	 * @var array
-	 */
 	private $jsFiles = array();
-
-	/**
-	 * @var array
-	 */
 	private $js = array();
-
-	/**
-	 * @var array
-	 */
 	private $cssFiles = array();
-
-	/**
-	 * @var array
-	 */
 	private $css = array();
 
 	/**
@@ -94,8 +58,8 @@ class tx_jft3blogwidget_jquerycalendar extends tslib_pibase
 		$this->conf = $conf;
 		$this->piVars = $piVars;
 		$this->cObj = $cObj;
-		$this->blogConfig = $GLOBALS['TSFE']->tmpl->setup['plugin.']['tx_t3blog_pi1.'];
-		$this->blogConfig['calendar.']['dateLink.']['typolink.']['returnLast'] = 'url';
+		$this->blogConf = $GLOBALS['TSFE']->tmpl->setup['plugin.']['tx_t3blog_pi1.'];
+		$this->blogConf['calendar.']['dateLink.']['typolink.']['returnLast'] = 'url';
 		// The template for JS
 		if (! $this->templateFileJS = $this->cObj->fileResource($this->conf['templateFileJS'])) {
 			$this->templateFileJS = $this->cObj->fileResource("EXT:jft3blogwidget/res/tx_jft3blogwidget.js");
@@ -118,7 +82,7 @@ class tx_jft3blogwidget_jquerycalendar extends tslib_pibase
 						'blogUid' => t3blog_div::getBlogPid()
 					),
 					'dateLink',
-					$this->blogConfig['calendar.']
+					$this->blogConf['calendar.']
 				);
 				$markerArray = array();
 				$markerArray["KEY"] = $key;
