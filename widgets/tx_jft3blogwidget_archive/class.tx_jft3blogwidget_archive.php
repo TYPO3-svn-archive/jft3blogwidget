@@ -36,6 +36,7 @@ class tx_jft3blogwidget_archive extends archive
 	public $prefixId      = 'tx_jft3blogwidget_archive';
 	public $scriptRelPath = 'widgets/tx_jft3blogwidget_archive/class.tx_jft3blogwidget_archive.php';
 	public $extKey        = 'jft3blogwidget';
+	private $archiveConf  = array();
 
 	/**
 	 * The main method of the PlugIn
@@ -66,19 +67,19 @@ jQuery(document).ready(function() {
 		var year = this.id.substr(6);
 		if(jQuery.cookie('archive_'+year)=='1') {
 			jQuery('#archive_'+year).slideUp('fast');
-			jQuery('#'+this.id).text('{$closeBlock}');
-		} else {
 			jQuery('#'+this.id).text('{$openBlock}');
+		} else {
+			jQuery('#'+this.id).text('{$closeBlock}');
 		}
 		jQuery('#'+this.id).click(function() {
-			if(jQuery('#'+this.id).text()=='{$openBlock}') {
+			if(jQuery('#'+this.id).text()=='{$closeBlock}') {
 				jQuery('#archive_'+year).slideUp('fast');
 				jQuery.cookie('archive_'+year,'1',{ path:'/'});
-				jQuery('#'+this.id).text('{$closeBlock}');
+				jQuery('#'+this.id).text('{$openBlock}');
 			} else {
 				jQuery('#archive_'+year).slideDown('fast');
 				jQuery.cookie('archive_'+year,'0',{ path:'/'});
-				jQuery('#'+this.id).text('{$openBlock}');
+				jQuery('#'+this.id).text('{$closeBlock}');
 			}
 			return false;
 		});
@@ -132,8 +133,8 @@ jQuery(document).ready(function() {
 				if (T3JQUERY === true) {
 					$conf = array(
 						'jsfile' => $jsToLoad,
-						'tofooter' => ($this->conf['jsInFooter'] || $allJsInFooter),
-						'jsminify' => $this->conf['jsMinify'],
+						'tofooter' => ($this->archiveConf['jsInFooter'] || $allJsInFooter),
+						'jsminify' => $this->archiveConf['jsMinify'],
 					);
 					tx_t3jquery::addJS('', $conf);
 				} else {
@@ -141,9 +142,9 @@ jQuery(document).ready(function() {
 					if ($file) {
 						if (t3lib_div::int_from_ver(TYPO3_version) >= 4003000) {
 							if ($allJsInFooter) {
-								$pagerender->addJsFooterFile($file, 'text/javascript', $this->conf['jsMinify']);
+								$pagerender->addJsFooterFile($file, 'text/javascript', $this->archiveConf['jsMinify']);
 							} else {
-								$pagerender->addJsFile($file, 'text/javascript', $this->conf['jsMinify']);
+								$pagerender->addJsFile($file, 'text/javascript', $this->archiveConf['jsMinify']);
 							}
 						} else {
 							$temp_file = '<script type="text/javascript" src="'.$file.'"></script>';
@@ -167,26 +168,26 @@ jQuery(document).ready(function() {
 			$conf = array();
 			$conf['jsdata'] = $temp_js;
 			if (T3JQUERY === true && t3lib_div::int_from_ver($this->getExtensionVersion('t3jquery')) >= 1002000) {
-				$conf['tofooter'] = ($this->conf['jsInFooter'] || $allJsInFooter);
-				$conf['jsminify'] = $this->conf['jsMinify'];
-				$conf['jsinline'] = $this->conf['jsInline'];
+				$conf['tofooter'] = ($this->archiveConf['jsInFooter'] || $allJsInFooter);
+				$conf['jsminify'] = $this->archiveConf['jsMinify'];
+				$conf['jsinline'] = $this->archiveConf['jsInline'];
 				tx_t3jquery::addJS('', $conf);
 			} else {
 				// Add script only once
 				$hash = md5($temp_js);
-				if ($this->conf['jsInline']) {
+				if ($this->archiveConf['jsInline']) {
 					$GLOBALS['TSFE']->inlineJS[$hash] = $temp_css;
 				} elseif (t3lib_div::int_from_ver(TYPO3_version) >= 4003000) {
-					if ($this->conf['jsInFooter'] || $allJsInFooter) {
-						$pagerender->addJsFooterInlineCode($hash, $temp_js, $this->conf['jsMinify']);
+					if ($this->archiveConf['jsInFooter'] || $allJsInFooter) {
+						$pagerender->addJsFooterInlineCode($hash, $temp_js, $this->archiveConf['jsMinify']);
 					} else {
-						$pagerender->addJsInlineCode($hash, $temp_js, $this->conf['jsMinify']);
+						$pagerender->addJsInlineCode($hash, $temp_js, $this->archiveConf['jsMinify']);
 					}
 				} else {
-					if ($this->conf['jsMinify']) {
+					if ($this->archiveConf['jsMinify']) {
 						$temp_js = t3lib_div::minifyJavaScript($temp_js);
 					}
-					if ($this->conf['jsInFooter'] || $allJsInFooter) {
+					if ($this->archiveConf['jsInFooter'] || $allJsInFooter) {
 						$GLOBALS['TSFE']->additionalFooterData['js_'.$this->extKey.'_'.$hash] = t3lib_div::wrapJS($temp_js, true);
 					} else {
 						$GLOBALS['TSFE']->additionalHeaderData['js_'.$this->extKey.'_'.$hash] = t3lib_div::wrapJS($temp_js, true);
@@ -201,7 +202,7 @@ jQuery(document).ready(function() {
 				$file = $this->getPath($cssToLoad);
 				if ($file) {
 					if (t3lib_div::int_from_ver(TYPO3_version) >= 4003000) {
-						$pagerender->addCssFile($file, 'stylesheet', 'all', '', $this->conf['cssMinify']);
+						$pagerender->addCssFile($file, 'stylesheet', 'all', '', $this->archiveConf['cssMinify']);
 					} else {
 						$GLOBALS['TSFE']->additionalHeaderData['cssFile_'.$this->extKey.'_'.$file] = '<link rel="stylesheet" type="text/css" href="'.$file.'" media="all" />'.chr(10);
 					}
@@ -217,7 +218,7 @@ jQuery(document).ready(function() {
 			}
 			$hash = md5($temp_css);
 			if (t3lib_div::int_from_ver(TYPO3_version) >= 4003000) {
-				$pagerender->addCssInlineBlock($hash, $temp_css, $this->conf['cssMinify']);
+				$pagerender->addCssInlineBlock($hash, $temp_css, $this->archiveConf['cssMinify']);
 			} else {
 				// addCssInlineBlock
 				$GLOBALS['TSFE']->additionalCSS['css_'.$this->extKey.'_'.$hash] .= $temp_css;
