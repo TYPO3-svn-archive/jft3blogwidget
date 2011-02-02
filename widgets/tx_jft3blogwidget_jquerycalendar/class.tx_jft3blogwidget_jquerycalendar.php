@@ -44,6 +44,7 @@ class tx_jft3blogwidget_jquerycalendar extends tslib_pibase
 	private $js = array();
 	private $cssFiles = array();
 	private $css = array();
+	const DEFAULT_LANGUAGE = 'de';
 
 	/**
 	 * Produces the output.
@@ -69,6 +70,21 @@ class tx_jft3blogwidget_jquerycalendar extends tslib_pibase
 			$templateCode = $this->outputError("Template TEMPLATE_CALENDAR_JS is missing", true);
 		}
 
+		// Generate the language string
+		$language = $this->cObj->cObjGetSingle($this->conf['language'], $this->conf['language.']);
+		// Language fallback, if not set, try to guess the language from config
+		if (! $language) {
+			$language = $GLOBALS['TSFE']->tmpl->setup['config.']['language'];
+			if (! $language) {
+				$language = self::DEFAULT_LANGUAGE;
+			}
+		}
+		
+
+		$markerArray = array();
+		$markerArray["LANGUAGE"] = $language;
+		$templateCode = $this->cObj->substituteMarkerArray($templateCode, $markerArray, '###|###', 0);
+
 		$dateItem = trim($this->cObj->getSubpart($templateCode, "###DATES_ITEM###"));
 		$blogdates = $this->getBlogDates();
 		$dateArray = array();
@@ -87,7 +103,7 @@ class tx_jft3blogwidget_jquerycalendar extends tslib_pibase
 				$markerArray = array();
 				$markerArray["KEY"] = $key;
 				$markerArray["DATE"] = $date['day'];
-				$markerArray["LINK"] = $link;
+				$markerArray["LINK"] = t3lib_div::getIndpEnv("TYPO3_SITE_URL") . $link;
 				$markerArray["COUNT"] = $date['counter'];
 				$class = '';
 				if (strtotime($date['day']) >= strtotime($this->piVars['blogList']['datefrom']) && strtotime($date['day']) <= strtotime($this->piVars['blogList']['dateto'])) {
@@ -106,6 +122,7 @@ class tx_jft3blogwidget_jquerycalendar extends tslib_pibase
 		} else {
 			$this->addJsFile($this->conf['jQueryLibrary']);
 			$this->addJsFile($this->conf['jQueryUI']);
+			$this->addJsFile(str_replace('###LANGUAGE###', $language, $this->conf['jQueryUIl18n']));
 		}
 		$this->addCssFile($this->conf['jQueryUIstyle']);
 		$this->addJS($templateCode);

@@ -16,6 +16,11 @@ plugin.tx_jft3blogwidget {
 
 
 
+	# cat=plugin.tx_jft3blogwidget/typo/010; type=options[Afrikaans=af, Arabic=ar, Algerian Arabic=ar-DZ, Azerbaijani (UTF-8)=az, Bulgarian=bg, Bosnian=bs, Catalan=ca, Czech=cs, Danish=da, German=de, Greek (el)=el, English/Australia=en-AU, English/UK=en-GB, English/New Zealand=en-NZ, Esperanto=eo, Espanol=es, Estonian=et, Euskarako=eu, Persian (Farsi)=fa, Finnish=fi, Faroese=fo, Swiss-French=fr-CH, French=fr, Galician=gl, Hebrew=he, Croatian=hr, Hungarian=hu, Armenian (UTF-8)=hy, Indonesian=id, Icelandic=is, Italian=it, Japanese=ja, Korean=ko, Kazakh=kz, Lithuanian (UTF-8)=lt, Latvian (UTF-8)=lv, Malayalam=ml, Malaysian=ms, Dutch (UTF-8)=nl, Norwegian=no, Polish=pl, Portuguese=pt, Brazilian=pt-BR, Romansh=rm, Romanian=ro, Russian (UTF-8)=ru, Slovak=sk, Slovenian=sl, Albanian=sq, Serbian (SR)=sr, Serbian (SR-SR)=sr-SR, Swedish=sv, Tamil=ta, Thai=th, Turkish=tr, Ukrainian (UTF-8)=uk, Vietnamese=vi, Chinese (CN)=zh-CN, Chinese (HK)=zh-HK, Chinese (TW)=zh-TW]; label=Language: Set the language of the calendar
+	language = de
+
+
+
 	# cat=plugin.tx_jft3blogwidget/file/010; type=file[js]; label=JS-Template file: Location of the used template for JS
 	file.templateFileJS = EXT:jft3blogwidget/res/tx_jft3blogwidget.js
 
@@ -28,7 +33,10 @@ plugin.tx_jft3blogwidget {
 	# cat=plugin.tx_jft3blogwidget/file/040; type=file[css]; label=jQuery UI style: Location of the jQuery UI CSS
 	file.jQueryUIstyle = EXT:jft3blogwidget/res/jquery/css/theme-1.8.9/jquery-ui-1.8.9.custom.css
 
-	# cat=plugin.tx_jft3blogwidget/file/050; type=file[js]; label=jQuery Cookies: Location of jQuery Cookies
+	# cat=plugin.tx_jft3blogwidget/file/050; type=string; label=Languagefile pattern: Pattern for the languagefile (jquerycalendar)
+	jQueryUIl18n = EXT:jft3blogwidget/res/jquery/js/i18n/ui.datepicker-###LANGUAGE###.js
+
+	# cat=plugin.tx_jft3blogwidget/file/060; type=file[js]; label=jQuery Cookies: Location of jQuery Cookies
 	file.jQueryCookies = EXT:jft3blogwidget/res/jquery/js/jquery-cookies.js
 
 }

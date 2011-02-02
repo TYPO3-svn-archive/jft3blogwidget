@@ -29,5 +29,6 @@ jQuery(document).ready(function(){
 			});
 		}
 	});
+	jQuery("#datepicker").datepicker("option", jQuery.datepicker.regional['###LANGUAGE###']);
 });
 <!-- ###TEMPLATE_CALENDAR_JS### end -->
