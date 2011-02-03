@@ -5,8 +5,10 @@ jQuery(document).ready(function(){
 	<!-- ###DATES_ITEM### -->
 	dates[###KEY###] = ['###DATE###', '###CLASS###', '###LINK###', '###COUNT###'];
 	<!-- ###DATES_ITEM### -->
+	jQuery.datepicker.setDefaults(jQuery.datepicker.regional["###LANGUAGE###"]);
 	jQuery('#datepicker').datepicker({
 		dateFormat: 'yy-mm-dd',
+		defaultDate: '###DATE_TO###',
 		beforeShowDay: function(date) {
 			var returnVal = false;
 			var classVal = '';
@@ -29,6 +31,5 @@ jQuery(document).ready(function(){
 			});
 		}
 	});
-	jQuery("#datepicker").datepicker("option", jQuery.datepicker.regional['###LANGUAGE###']);
 });
 <!-- ###TEMPLATE_CALENDAR_JS### end -->

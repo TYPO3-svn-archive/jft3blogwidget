@@ -79,10 +79,11 @@ class tx_jft3blogwidget_jquerycalendar extends tslib_pibase
 				$language = self::DEFAULT_LANGUAGE;
 			}
 		}
-		
 
 		$markerArray = array();
 		$markerArray["LANGUAGE"] = $language;
+		$markerArray["DATE_FROM"] = $this->piVars['blogList']['datefrom'];
+		$markerArray["DATE_TO"]   = $this->piVars['blogList']['dateto'];
 		$templateCode = $this->cObj->substituteMarkerArray($templateCode, $markerArray, '###|###', 0);
 
 		$dateItem = trim($this->cObj->getSubpart($templateCode, "###DATES_ITEM###"));

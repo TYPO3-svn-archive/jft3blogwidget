@@ -25,7 +25,7 @@ plugin.tx_jft3blogwidget {
 	file.templateFileJS = EXT:jft3blogwidget/res/tx_jft3blogwidget.js
 
 	# cat=plugin.tx_jft3blogwidget/file/020; type=file[js]; label=jQuery Library: Location of the jQuery Lib
-	file.jQueryLibrary = EXT:jft3blogwidget/res/jquery/js/jquery-1.4.4.min.js
+	file.jQueryLibrary = EXT:jft3blogwidget/res/jquery/js/jquery-1.5.0.min.js
 
 	# cat=plugin.tx_jft3blogwidget/file/030; type=file[js]; label=jQuery UI: Location of the jQuery UI
 	file.jQueryUI = EXT:jft3blogwidget/res/jquery/js/jquery-ui-1.8.9.custom.min.js
