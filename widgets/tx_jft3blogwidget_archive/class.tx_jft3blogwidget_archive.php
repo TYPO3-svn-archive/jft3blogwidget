@@ -37,6 +37,11 @@ class tx_jft3blogwidget_archive extends archive
 	public $scriptRelPath = 'widgets/tx_jft3blogwidget_archive/class.tx_jft3blogwidget_archive.php';
 	public $extKey        = 'jft3blogwidget';
 	private $archiveConf  = array();
+	private $templateFileJS = null;
+	private $jsFiles      = array();
+	private $js           = array();
+	private $cssFiles     = array();
+	private $css          = array();
 
 	/**
 	 * The main method of the PlugIn
@@ -51,40 +56,30 @@ class tx_jft3blogwidget_archive extends archive
 		$this->archiveConf = $conf;
 		$this->conf = $GLOBALS['TSFE']->tmpl->setup['plugin.']['tx_t3blog_pi1.']['archive.'];
 
+		// Init
 		$this->init();
-		list($firstYear, $lastYear) = $this->getFirstAndLastYear();
-		for ($this->currentYear = $firstYear; $this->currentYear >= $lastYear; $this->currentYear--) {
-			$this->processOneYear();
+		// Use the labels from t3blog / archive
+		$languageBasePath = 'EXT:t3blog/pi1/widgets/archive/locallang.xml';
+		$this->LOCAL_LANG = t3lib_div::readLLfile($languageBasePath, $this->LLkey, $GLOBALS['TSFE']->renderCharset);
+		if ($this->altLLkey) {
+			$tempLOCAL_LANG   = t3lib_div::readLLfile($languageBasePath, $this->altLLkey);
+			$this->LOCAL_LANG = array_merge(is_array($this->LOCAL_LANG) ? $this->LOCAL_LANG : array(), $tempLOCAL_LANG);
 		}
-		$content = $this->assembleContent();
 
-		$openBlock = t3lib_div::slashJS($this->conf['toggle.']['open']);
-		$closeBlock = t3lib_div::slashJS($this->conf['toggle.']['close']);
-
-		$js = "
-jQuery(document).ready(function() {
-	jQuery(\"a[id^='toggle']\").each(function() {
-		var year = this.id.substr(6);
-		if(jQuery.cookie('archive_'+year)=='1') {
-			jQuery('#archive_'+year).slideUp('fast');
-			jQuery('#'+this.id).text('{$openBlock}');
-		} else {
-			jQuery('#'+this.id).text('{$closeBlock}');
+		// The template for JS
+		if (! $this->templateFileJS = $this->cObj->fileResource($this->conf['templateFileJS'])) {
+			$this->templateFileJS = $this->cObj->fileResource("EXT:jft3blogwidget/res/tx_jft3blogwidget.js");
 		}
-		jQuery('#'+this.id).click(function() {
-			if(jQuery('#'+this.id).text()=='{$closeBlock}') {
-				jQuery('#archive_'+year).slideUp('fast');
-				jQuery.cookie('archive_'+year,'1',{ path:'/'});
-				jQuery('#'+this.id).text('{$openBlock}');
-			} else {
-				jQuery('#archive_'+year).slideDown('fast');
-				jQuery.cookie('archive_'+year,'0',{ path:'/'});
-				jQuery('#'+this.id).text('{$closeBlock}');
-			}
-			return false;
-		});
-	});
-});";
+
+		if (! $templateCode = trim($this->cObj->getSubpart($this->templateFileJS, "###TEMPLATE_ARCHIVE_JS###"))) {
+			$templateCode = $this->outputError("Template TEMPLATE_ARCHIVE_JS is missing", true);
+		}
+
+		$markerArray = array();
+		$markerArray["SPEED"]        = $this->archiveConf['animation.']['speed'];
+		$markerArray["TOGGLE_OPEN"]  = t3lib_div::slashJS($this->conf['toggle.']['open']);
+		$markerArray["TOGGLE_CLOSE"] = t3lib_div::slashJS($this->conf['toggle.']['close']);
+		$templateCode = $this->cObj->substituteMarkerArray($templateCode, $markerArray, '###|###', 0);
 
 		// Add all CSS and JS files
 		if (T3JQUERY === true) {
@@ -93,9 +88,15 @@ jQuery(document).ready(function() {
 			$this->addJsFile($this->archiveConf['jQueryLibrary']);
 		}
 		$this->addJsFile($this->archiveConf['jQueryCookies']);
-		$this->addJS($js);
+		$this->addJS($templateCode);
 
 		$this->addResources();
+
+		list($firstYear, $lastYear) = $this->getFirstAndLastYear();
+		for ($this->currentYear = $firstYear; $this->currentYear >= $lastYear; $this->currentYear--) {
+			$this->processOneYear();
+		}
+		$content = $this->assembleContent();
 
 		return $content;
 	}

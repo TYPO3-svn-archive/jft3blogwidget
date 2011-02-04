@@ -33,3 +33,33 @@ jQuery(document).ready(function(){
 	});
 });
 <!-- ###TEMPLATE_CALENDAR_JS### end -->
+
+
+
+<!-- ###TEMPLATE_ARCHIVE_JS### end -->
+jQuery(document).ready(function() {
+	jQuery("a[id^='toggle']").each(function() {
+		var $id = this.id;
+		var year = $id.substr(6);
+		if(jQuery.cookie('archive_'+year) == '1') {
+			jQuery('#archive_'+year).toggle(false);
+			jQuery('#'+$id).empty().append('###TOGGLE_OPEN###');
+		} else {
+			jQuery('#archive_'+year).toggle(true);
+			jQuery('#'+$id).empty().append('###TOGGLE_CLOSE###');
+		}
+		jQuery('#'+$id).click(function(){
+			jQuery('#archive_'+year).slideToggle('###SPEED###', function(i,a){
+				if (jQuery('#archive_'+year).is(':visible')) {
+					jQuery.cookie('archive_'+year,'0',{ path:'/'});
+					jQuery('#'+$id).empty().append('###TOGGLE_CLOSE###');
+				} else {
+					jQuery.cookie('archive_'+year,'1',{ path:'/'});
+					jQuery('#'+$id).empty().append('###TOGGLE_OPEN###');
+				}
+			});
+			return false;
+		});
+	});
+});
+<!-- ###TEMPLATE_ARCHIVE_JS### end -->

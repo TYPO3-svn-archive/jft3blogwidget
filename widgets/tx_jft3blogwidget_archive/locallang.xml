@@ -8,18 +8,6 @@
 		<languageKey index="default" type="array">
 			<label index="title">Archive</label>
 			<label index="widgetSelector.description">jQuery Archive for T3BLOG</label>
-			<label index="month_1">January</label>
-			<label index="month_2">February</label>
-			<label index="month_3">March</label>
-			<label index="month_4">April</label>
-			<label index="month_5">May</label>
-			<label index="month_6">June</label>
-			<label index="month_7">July</label>
-			<label index="month_8">August</label>
-			<label index="month_9">September</label>
-			<label index="month_10">October</label>
-			<label index="month_11">November</label>
-			<label index="month_12">December</label>
 		</languageKey>
 	</data>
 </T3locallang>

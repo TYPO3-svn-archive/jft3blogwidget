@@ -42,6 +42,10 @@ plugin.tx_t3blog_pi2 {
 	
 		jQueryLibrary = {$plugin.tx_jft3blogwidget.file.jQueryLibrary}
 		jQueryCookies = {$plugin.tx_jft3blogwidget.file.jQueryCookies}
+
+		animation {
+			speed = {$plugin.tx_jft3blogwidget.animationSpeed}
+		}
 	}
 }
 plugin.tx_t3blog_pi1.tx_jft3blogwidget_archive < plugin.tx_t3blog_pi2.tx_jft3blogwidget_archive
