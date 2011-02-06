@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<T3locallang>
+	<meta type="array">
+		<type>module</type>
+		<description>Language labels for Trend widget</description>
+	</meta>
+	<data type="array">
+		<languageKey index="default" type="array">
+			<label index="title">Tag cloud</label>
+			<label index="widgetSelector.description">Cloud with most popular words (jft3blogwidget)</label>
+			<label index="tagCloudTitle">Tag cloud</label>
+		</languageKey>
+	</data>
+</T3locallang>

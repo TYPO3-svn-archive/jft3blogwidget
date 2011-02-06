@@ -36,7 +36,7 @@ jQuery(document).ready(function(){
 
 
 
-<!-- ###TEMPLATE_ARCHIVE_JS### end -->
+<!-- ###TEMPLATE_ARCHIVE_JS### begin -->
 jQuery(document).ready(function() {
 	jQuery("a[id^='toggle']").each(function() {
 		var $id = this.id;
@@ -63,3 +63,28 @@ jQuery(document).ready(function() {
 	});
 });
 <!-- ###TEMPLATE_ARCHIVE_JS### end -->
+
+
+
+<!-- ###TEMPLATE_TAGCLOUD_JS### begin -->
+var rnumber = Math.floor(Math.random()*9999999);
+var attributes = {
+	bgcolor:"####BGCOLOR###"
+};
+var params = {
+	allowfullscreen: true,
+	allowScriptAccess: "always",
+	wmode: "###WMODE###"
+};
+var flashvars = {
+	tcolor: "0x###T_COLOR1###",
+	tcolor2: "0x###T_COLOR2###",
+	hicolor: "0x###HI_COLOR###",
+	tspeed: "###SPEED###",
+	distr: ###DISTR###,
+	mode: "tags",
+	tagcloud: "###TAGLINKS###",
+}; 
+var cumulusobject = swfobject;
+cumulusobject.embedSWF("###SWF_TAGCLOUD###?r="+rnumber, "jft3blogwidgettagcloud", "###WIDTH###", "###HEIGHT###", "9", "", flashvars, params,attributes);
+<!-- ###TEMPLATE_TAGCLOUD_JS### end -->

@@ -40,7 +40,9 @@ class tx_jft3blogwidget_getwidgets
 	public function getWidgets(array $unusedParams) {
 		return array(
 			'tx_jft3blogwidget_jquerycalendar' => 'EXT:jft3blogwidget/widgets/tx_jft3blogwidget_jquerycalendar/',
-			'tx_jft3blogwidget_archive' => 'EXT:jft3blogwidget/widgets/tx_jft3blogwidget_archive/',
+			'tx_jft3blogwidget_archive'        => 'EXT:jft3blogwidget/widgets/tx_jft3blogwidget_archive/',
+			'tx_jft3blogwidget_tagcloud'       => 'EXT:jft3blogwidget/widgets/tx_jft3blogwidget_tagcloud/',
+			
 		);
 	}
 }

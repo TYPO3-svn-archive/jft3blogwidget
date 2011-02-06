@@ -39,7 +39,8 @@ plugin.tx_t3blog_pi2 {
 		jsMinify = {$plugin.tx_jft3blogwidget.jsMinify}
 		jsInline = {$plugin.tx_jft3blogwidget.jsInline}
 		cssMinify = {$plugin.tx_jft3blogwidget.cssMinify}
-	
+
+		templateFileJS = {$plugin.tx_jft3blogwidget.file.templateFileJS}
 		jQueryLibrary = {$plugin.tx_jft3blogwidget.file.jQueryLibrary}
 		jQueryCookies = {$plugin.tx_jft3blogwidget.file.jQueryCookies}
 
@@ -50,4 +51,55 @@ plugin.tx_t3blog_pi2 {
 }
 plugin.tx_t3blog_pi1.tx_jft3blogwidget_archive < plugin.tx_t3blog_pi2.tx_jft3blogwidget_archive
 
+
+
+plugin.tx_t3blog_pi1{
+	tx_jft3blogwidget_tagcloud {
+		includeLibs = EXT:jft3blogwidget/widgets/tx_jft3blogwidget_tagcloud/class.tx_jft3blogwidget_tagcloud.php
+
+		jsInFooter = {$plugin.tx_jft3blogwidget.jsInFooter}
+		jsMinify = {$plugin.tx_jft3blogwidget.jsMinify}
+		jsInline = {$plugin.tx_jft3blogwidget.jsInline}
+		cssMinify = {$plugin.tx_jft3blogwidget.cssMinify}
+
+		templateFileJS = {$plugin.tx_jft3blogwidget.file.templateFileJS}
+
+		tagCloudSWF = {$plugin.tx_jft3blogwidget.file.tagCloudSWF}
+		tagCloudJS = {$plugin.tx_jft3blogwidget.file.tagCloudJS}
+
+		width  = 200
+		height = 200
+		speed = 100;
+		distr = 1
+		wmode = transparent
+		bgColor = ffffff
+		tagColor1 = 333333
+		tagColor2 = 999999
+		highlightColor = 5599ff
+
+		tagcloudswf = COA
+		tagcloudswf {
+			wrap = <tags xmlns:fla="http://www.roytanck.com/2009/03/11/how-to-use-wp-cumulus-shortcodes/"> | </tags>
+			10 = TEXT
+			10 {
+				data = register:taglinks
+			}
+		}
+		tagcloud = COA
+		tagcloud {
+			wrap = <div id="jft3blogwidgettagcloud"> | </div>
+			10 = TEXT
+			10 {
+				data = register:taglinks
+				wrap = <p style="display:none"> | </p>
+			}
+			20 = TEXT
+			20 {
+				value = jft3blogwidget by Juergen Furrer <a href="http://typo3.cms-jack.ch/">CMS-Jack</a> (based on WP Cumulus Flash tag cloud by <a href="http://www.roytanck.com">Roy Tanck</a>) requires Flash Player 9 or better.
+				wrap = <p> | </p>
+			}
+		}
+	}
+}
+plugin.tx_t3blog_pi1.tx_jft3blogwidget_tagcloud < plugin.tx_t3blog_pi2.tx_jft3blogwidget_tagcloud
 

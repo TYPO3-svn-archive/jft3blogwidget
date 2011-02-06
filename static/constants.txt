@@ -42,4 +42,9 @@ plugin.tx_jft3blogwidget {
 	# cat=plugin.tx_jft3blogwidget/file/060; type=file[js]; label=jQuery Cookies: Location of jQuery Cookies
 	file.jQueryCookies = EXT:jft3blogwidget/res/jquery/js/jquery-cookies.js
 
+	# cat=plugin.tx_jft3blogwidget/file/070; type=file[swf]; label=SWF-tagCloud: The used SWF-File of the tagCloud
+	file.tagCloudSWF = EXT:jft3blogwidget/res/tagcloud/tagcloud.swf
+
+	# cat=plugin.tx_jft3blogwidget/file/070; type=file[js]; label=JS-tagCloud: The used JS-File of the tagCloud
+	file.tagCloudJS = EXT:jft3blogwidget/res/tagcloud/swfobject.js
 }
