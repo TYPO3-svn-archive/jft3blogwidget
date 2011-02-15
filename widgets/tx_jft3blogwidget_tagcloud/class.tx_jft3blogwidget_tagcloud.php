@@ -37,6 +37,10 @@ class tx_jft3blogwidget_tagcloud extends tagCloud
 	public $scriptRelPath = 'widgets/tx_jft3blogwidget_tagcloud/class.tx_jft3blogwidget_tagcloud.php';
 	public $extKey        = 'jft3blogwidget';
 	private $tagcloudConf  = array();
+	private $jsFiles = array();
+	private $js = array();
+	private $cssFiles = array();
+	private $css = array();
 
 	/**
 	 * The main method of the PlugIn
@@ -46,7 +50,7 @@ class tx_jft3blogwidget_tagcloud extends tagCloud
 	 * @param	array		$conf: The PlugIn configuration
 	 * @return	The content that is displayed on the website
 	 */
-	function main($content, $conf, $piVars)
+	public function main($content, $conf, $piVars)
 	{
 		$this->cObj = t3lib_div::makeInstance('tslib_cObj');
 		$this->conf = $conf;
@@ -183,7 +187,7 @@ class tx_jft3blogwidget_tagcloud extends tagCloud
 	 *
 	 * @return void
 	 */
-	function addResources()
+	private function addResources()
 	{
 		if (t3lib_div::int_from_ver(TYPO3_version) >= 4003000) {
 			$pagerender = $GLOBALS['TSFE']->getPageRenderer();
@@ -299,7 +303,7 @@ class tx_jft3blogwidget_tagcloud extends tagCloud
 	 * @param string $path
 	 * return string
 	 */
-	function getPath($path="")
+	private function getPath($path="")
 	{
 		return $GLOBALS['TSFE']->tmpl->getFileName($path);
 	}
@@ -311,7 +315,7 @@ class tx_jft3blogwidget_tagcloud extends tagCloud
 	 * @param boolean $first
 	 * @return void
 	 */
-	function addJsFile($script="", $first=false)
+	private function addJsFile($script="", $first=false)
 	{
 		if ($this->getPath($script) && ! in_array($script, $this->jsFiles)) {
 			if ($first === true) {
@@ -328,7 +332,7 @@ class tx_jft3blogwidget_tagcloud extends tagCloud
 	 * @param string $script
 	 * @return void
 	 */
-	function addJS($script="")
+	private function addJS($script="")
 	{
 		if (! in_array($script, $this->js)) {
 			$this->js[] = $script;
@@ -341,7 +345,7 @@ class tx_jft3blogwidget_tagcloud extends tagCloud
 	 * @param string $script
 	 * @return void
 	 */
-	function addCssFile($script="")
+	private function addCssFile($script="")
 	{
 		if ($this->getPath($script) && ! in_array($script, $this->cssFiles)) {
 			$this->cssFiles[] = $script;
@@ -354,7 +358,7 @@ class tx_jft3blogwidget_tagcloud extends tagCloud
 	 * @param string $script
 	 * @return void
 	 */
-	function addCSS($script="")
+	private function addCSS($script="")
 	{
 		if (! in_array($script, $this->css)) {
 			$this->css[] = $script;
@@ -366,7 +370,7 @@ class tx_jft3blogwidget_tagcloud extends tagCloud
 	 * @param string $key
 	 * @return string
 	 */
-	function getExtensionVersion($key)
+	private function getExtensionVersion($key)
 	{
 		if (! t3lib_extMgm::isLoaded($key)) {
 			return '';
@@ -382,7 +386,7 @@ class tx_jft3blogwidget_tagcloud extends tagCloud
 	 * @param boolean $js
 	 * @return string
 	 */
-	function outputError($msg='', $js=false)
+	private function outputError($msg='', $js=false)
 	{
 		t3lib_div::devLog($msg, $this->extKey, 3);
 		return ($js ? "alert(".t3lib_div::quoteJSvalue($msg).")" : "<p>{$msg}</p>");
