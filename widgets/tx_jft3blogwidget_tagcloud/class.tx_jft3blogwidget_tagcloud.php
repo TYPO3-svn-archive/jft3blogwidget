@@ -95,7 +95,7 @@ class tx_jft3blogwidget_tagcloud extends tagCloud
 		$markerArray["SPEED"]  = $this->conf['speed'];
 		$markerArray["DISTR"]  = ($this->conf['distr'] ? 'true' : 'false');
 		$markerArray["WMODE"]  = $this->conf['wmode'];
-		$markerArray["BG_COLOR"] = $this->conf['bgColor'];
+		$markerArray["BGCOLOR"] = $this->conf['bgColor'];
 		$markerArray["T_COLOR1"] = $this->conf['tagColor1'];
 		$markerArray["T_COLOR2"] = $this->conf['tagColor2'];
 		$markerArray["HI_COLOR"] = $this->conf['highlightColor'];
