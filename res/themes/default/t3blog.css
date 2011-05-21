@@ -1,0 +1,61 @@
+#ext-t3blog-mod1-index-php h4 {
+	margin-left: 10px;
+}
+
+#ext-t3blog-mod1-index-php .c-refresh {
+	margin-left: 10px;
+}
+
+
+#ext-t3blog-mod2-index-php .recordlist,
+#ext-t3blog-mod3-index-php .recordlist,
+#ext-t3blog-mod5-index-php .recordlist {
+	border: 1px solid #A2AAB8;
+}
+
+#ext-t3blog-mod2-index-php .recordlist td,
+#ext-t3blog-mod3-index-php .recordlist td,
+#ext-t3blog-mod5-index-php .recordlist td {
+	padding: 4px;
+	vertical-align: top;
+}
+
+#ext-t3blog-mod2-index-php .recordlist th,
+#ext-t3blog-mod3-index-php .recordlist th,
+#ext-t3blog-mod5-index-php .recordlist th {
+	background-color: #5B5B5B;
+	background-image: -moz-linear-gradient(center top , #7F7F7F 10%, #5B5B5B 100%);
+	background-repeat: repeat-x;
+	color: #FFFFFF;
+	font-size: 10px;
+	height: 20px;
+	line-height: 19px;
+	padding: 5px;
+}
+
+#ext-t3blog-mod2-index-php .recordlist tr.even,
+#ext-t3blog-mod3-index-php .recordlist tr.even,
+#ext-t3blog-mod5-index-php .recordlist tr.even {
+	background-color: #FFFFFF;
+}
+#ext-t3blog-mod2-index-php .recordlist tr.odd,
+#ext-t3blog-mod3-index-php .recordlist tr.odd,
+#ext-t3blog-mod5-index-php .recordlist tr.odd {
+	background-color: #F7F7F7;
+}
+
+#ext-t3blog-mod2-index-php .newRecord,
+#ext-t3blog-mod3-index-php .newRecord,
+#ext-t3blog-mod5-index-php .newRecord {
+	padding: 5px 10px 5px 0px;
+	margin-bottom: 7px;
+}
+#ext-t3blog-mod3-index-php .newRecord,
+#ext-t3blog-mod5-index-php .newRecord {
+	display: block;
+}
+#ext-t3blog-mod2-index-php .pagecount,
+#ext-t3blog-mod3-index-php .pagecount,
+#ext-t3blog-mod5-index-php .pagecount {
+	padding: 5px 0px
+}

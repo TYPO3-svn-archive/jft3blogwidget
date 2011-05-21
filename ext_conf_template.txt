@@ -1,0 +1,11 @@
+
+# cat=basic/typo/10; type=boolean; label=Enable T3BLOG theme: If set, the backend style will be enable for T3BLOG
+t3blogThemeEnable = 0
+
+# cat=basic/typo/20; type=string; label=T3BLOG theme: Folder where the used theme for T3BLOG is stored (EXT:jft3blogwidget/res/themes/default/)
+t3blogTheme = EXT:jft3blogwidget/res/themes/default/
+
+
+
+# cat=basic/dev/1000; type=user[EXT:jft3blogwidget/lib/class.tx_jft3blogwidget_tsparserext.php:tx_jft3blogwidget_tsparserext->displayMessage]; label=Updater
+updateMessage = 0
