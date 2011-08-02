@@ -28,13 +28,13 @@ plugin.tx_jft3blogwidget {
 	file.templateFileJS = EXT:jft3blogwidget/res/tx_jft3blogwidget.js
 
 	# cat=plugin.tx_jft3blogwidget/file/020; type=file[js]; label=jQuery Library: Location of the jQuery Lib
-	file.jQueryLibrary = EXT:jft3blogwidget/res/jquery/js/jquery-1.6.1.min.js
+	file.jQueryLibrary = EXT:jft3blogwidget/res/jquery/js/jquery-1.6.2.min.js
 
 	# cat=plugin.tx_jft3blogwidget/file/030; type=file[js]; label=jQuery UI: Location of the jQuery UI
-	file.jQueryUI = EXT:jft3blogwidget/res/jquery/js/jquery-ui-1.8.13.custom.min.js
+	file.jQueryUI = EXT:jft3blogwidget/res/jquery/js/jquery-ui-1.8.14.custom.min.js
 
 	# cat=plugin.tx_jft3blogwidget/file/040; type=file[css]; label=jQuery UI style: Location of the jQuery UI CSS
-	file.jQueryUIstyle = EXT:jft3blogwidget/res/jquery/css/theme-1.8.13/jquery-ui-1.8.13.custom.css
+	file.jQueryUIstyle = EXT:jft3blogwidget/res/jquery/css/theme-1.8.14/jquery-ui-1.8.14.custom.css
 
 	# cat=plugin.tx_jft3blogwidget/file/050; type=string; label=Languagefile pattern: Pattern for the languagefile (jquerycalendar)
 	jQueryUIl18n = EXT:jft3blogwidget/res/jquery/js/i18n/ui.datepicker-###LANGUAGE###.js
