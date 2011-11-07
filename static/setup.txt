@@ -53,7 +53,7 @@ plugin.tx_t3blog_pi1.tx_jft3blogwidget_archive < plugin.tx_t3blog_pi2.tx_jft3blo
 
 
 
-plugin.tx_t3blog_pi1{
+plugin.tx_t3blog_pi2 {
 	tx_jft3blogwidget_tagcloud {
 		includeLibs = EXT:jft3blogwidget/widgets/tx_jft3blogwidget_tagcloud/class.tx_jft3blogwidget_tagcloud.php
 
