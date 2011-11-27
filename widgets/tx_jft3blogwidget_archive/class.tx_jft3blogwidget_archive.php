@@ -23,6 +23,7 @@
 ***************************************************************/
 
 require_once(t3lib_extMgm::extPath('t3blog').'pi1/widgets/archive/class.archive.php');
+require_once(t3lib_extMgm::extPath('jft3blogwidget').'lib/class.tx_jft3blogwidget_pagerenderer.php');
 
 /**
  * This class embeds the jQuery UI Calendar to T3BLOG.
@@ -54,6 +55,9 @@ class tx_jft3blogwidget_archive extends archive
 	 */
 	function main($content, $conf, $piVars)
 	{
+		$this->pagerenderer = t3lib_div::makeInstance('tx_jft3blogwidget_pagerenderer');
+		$this->pagerenderer->setConf($this->conf);
+
 		$this->archiveConf = $conf;
 		$this->conf = $GLOBALS['TSFE']->tmpl->setup['plugin.']['tx_t3blog_pi1.']['archive.'];
 
@@ -86,12 +90,12 @@ class tx_jft3blogwidget_archive extends archive
 		if (T3JQUERY === true) {
 			tx_t3jquery::addJqJS();
 		} else {
-			$this->addJsFile($this->archiveConf['jQueryLibrary']);
+			$this->pagerenderer->addJsFile($this->archiveConf['jQueryLibrary']);
 		}
-		$this->addJsFile($this->archiveConf['jQueryCookies']);
-		$this->addJS($templateCode);
+		$this->pagerenderer->addJsFile($this->archiveConf['jQueryCookies']);
+		$this->pagerenderer->addJS($templateCode);
 
-		$this->addResources();
+		$this->pagerenderer->addResources();
 
 		list($firstYear, $lastYear) = $this->getFirstAndLastYear();
 		for ($this->currentYear = $firstYear; $this->currentYear >= $lastYear; $this->currentYear--) {
@@ -111,204 +115,6 @@ class tx_jft3blogwidget_archive extends archive
 	protected function getToggleJS($id)
 	{
 		return '';
-	}
-
-	/**
-	 * Include all defined resources (JS / CSS)
-	 *
-	 * @return void
-	 */
-	function addResources()
-	{
-		if (t3lib_div::int_from_ver(TYPO3_version) >= 4003000) {
-			$pagerender = $GLOBALS['TSFE']->getPageRenderer();
-		}
-		// Fix moveJsFromHeaderToFooter (add all scripts to the footer)
-		if ($GLOBALS['TSFE']->config['config']['moveJsFromHeaderToFooter']) {
-			$allJsInFooter = true;
-		} else {
-			$allJsInFooter = false;
-		}
-		// add all defined JS files
-		if (count($this->jsFiles) > 0) {
-			foreach ($this->jsFiles as $jsToLoad) {
-				if (T3JQUERY === true) {
-					$conf = array(
-						'jsfile' => $jsToLoad,
-						'tofooter' => ($this->archiveConf['jsInFooter'] || $allJsInFooter),
-						'jsminify' => $this->archiveConf['jsMinify'],
-					);
-					tx_t3jquery::addJS('', $conf);
-				} else {
-					$file = $this->getPath($jsToLoad);
-					if ($file) {
-						if (t3lib_div::int_from_ver(TYPO3_version) >= 4003000) {
-							if ($this->conf['jsInFooter'] || $allJsInFooter) {
-								$pagerender->addJsFooterFile($file, 'text/javascript', $this->archiveConf['jsMinify']);
-							} else {
-								$pagerender->addJsFile($file, 'text/javascript', $this->archiveConf['jsMinify']);
-							}
-						} else {
-							$temp_file = '<script type="text/javascript" src="'.$file.'"></script>';
-							if ($this->conf['jsInFooter'] || $allJsInFooter) {
-								$GLOBALS['TSFE']->additionalFooterData['jsFile_'.$this->extKey.'_'.$file] = $temp_file;
-							} else {
-								$GLOBALS['TSFE']->additionalHeaderData['jsFile_'.$this->extKey.'_'.$file] = $temp_file;
-							}
-						}
-					} else {
-						t3lib_div::devLog("'{$jsToLoad}' does not exists!", $this->extKey, 2);
-					}
-				}
-			}
-		}
-		// add all defined JS script
-		if (count($this->js) > 0) {
-			foreach ($this->js as $jsToPut) {
-				$temp_js .= $jsToPut;
-			}
-			$conf = array();
-			$conf['jsdata'] = $temp_js;
-			if (T3JQUERY === true && t3lib_div::int_from_ver($this->getExtensionVersion('t3jquery')) >= 1002000) {
-				$conf['tofooter'] = ($this->archiveConf['jsInFooter'] || $allJsInFooter);
-				$conf['jsminify'] = $this->archiveConf['jsMinify'];
-				$conf['jsinline'] = $this->archiveConf['jsInline'];
-				tx_t3jquery::addJS('', $conf);
-			} else {
-				// Add script only once
-				$hash = md5($temp_js);
-				if ($this->archiveConf['jsInline']) {
-					$GLOBALS['TSFE']->inlineJS[$hash] = $temp_js;
-				} elseif (t3lib_div::int_from_ver(TYPO3_version) >= 4003000) {
-					if ($this->archiveConf['jsInFooter'] || $allJsInFooter) {
-						$pagerender->addJsFooterInlineCode($hash, $temp_js, $this->archiveConf['jsMinify']);
-					} else {
-						$pagerender->addJsInlineCode($hash, $temp_js, $this->archiveConf['jsMinify']);
-					}
-				} else {
-					if ($this->archiveConf['jsMinify']) {
-						$temp_js = t3lib_div::minifyJavaScript($temp_js);
-					}
-					if ($this->archiveConf['jsInFooter'] || $allJsInFooter) {
-						$GLOBALS['TSFE']->additionalFooterData['js_'.$this->extKey.'_'.$hash] = t3lib_div::wrapJS($temp_js, true);
-					} else {
-						$GLOBALS['TSFE']->additionalHeaderData['js_'.$this->extKey.'_'.$hash] = t3lib_div::wrapJS($temp_js, true);
-					}
-				}
-			}
-		}
-		// add all defined CSS files
-		if (count($this->cssFiles) > 0) {
-			foreach ($this->cssFiles as $cssToLoad) {
-				// Add script only once
-				$file = $this->getPath($cssToLoad);
-				if ($file) {
-					if (t3lib_div::int_from_ver(TYPO3_version) >= 4003000) {
-						$pagerender->addCssFile($file, 'stylesheet', 'all', '', $this->archiveConf['cssMinify']);
-					} else {
-						$GLOBALS['TSFE']->additionalHeaderData['cssFile_'.$this->extKey.'_'.$file] = '<link rel="stylesheet" type="text/css" href="'.$file.'" media="all" />'.chr(10);
-					}
-				} else {
-					t3lib_div::devLog("'{$cssToLoad}' does not exists!", $this->extKey, 2);
-				}
-			}
-		}
-		// add all defined CSS Script
-		if (count($this->css) > 0) {
-			foreach ($this->css as $cssToPut) {
-				$temp_css .= $cssToPut;
-			}
-			$hash = md5($temp_css);
-			if (t3lib_div::int_from_ver(TYPO3_version) >= 4003000) {
-				$pagerender->addCssInlineBlock($hash, $temp_css, $this->archiveConf['cssMinify']);
-			} else {
-				// addCssInlineBlock
-				$GLOBALS['TSFE']->additionalCSS['css_'.$this->extKey.'_'.$hash] .= $temp_css;
-			}
-		}
-	}
-
-	/**
-	 * Return the webbased path
-	 * 
-	 * @param string $path
-	 * return string
-	 */
-	function getPath($path="")
-	{
-		return $GLOBALS['TSFE']->tmpl->getFileName($path);
-	}
-
-	/**
-	 * Add additional JS file
-	 * 
-	 * @param string $script
-	 * @param boolean $first
-	 * @return void
-	 */
-	function addJsFile($script="", $first=false)
-	{
-		if ($this->getPath($script) && ! in_array($script, $this->jsFiles)) {
-			if ($first === true) {
-				$this->jsFiles = array_merge(array($script), $this->jsFiles);
-			} else {
-				$this->jsFiles[] = $script;
-			}
-		}
-	}
-
-	/**
-	 * Add JS to header
-	 * 
-	 * @param string $script
-	 * @return void
-	 */
-	function addJS($script="")
-	{
-		if (! in_array($script, $this->js)) {
-			$this->js[] = $script;
-		}
-	}
-
-	/**
-	 * Add additional CSS file
-	 * 
-	 * @param string $script
-	 * @return void
-	 */
-	function addCssFile($script="")
-	{
-		if ($this->getPath($script) && ! in_array($script, $this->cssFiles)) {
-			$this->cssFiles[] = $script;
-		}
-	}
-
-	/**
-	 * Add CSS to header
-	 * 
-	 * @param string $script
-	 * @return void
-	 */
-	function addCSS($script="")
-	{
-		if (! in_array($script, $this->css)) {
-			$this->css[] = $script;
-		}
-	}
-
-	/**
-	 * Returns the version of an extension (in 4.4 its possible to this with t3lib_extMgm::getExtensionVersion)
-	 * @param string $key
-	 * @return string
-	 */
-	function getExtensionVersion($key)
-	{
-		if (! t3lib_extMgm::isLoaded($key)) {
-			return '';
-		}
-		$_EXTKEY = $key;
-		include(t3lib_extMgm::extPath($key) . 'ext_emconf.php');
-		return $EM_CONF[$key]['version'];
 	}
 
 	/**
