@@ -41,11 +41,6 @@ class tx_jft3blogwidget_jquerycalendar extends tslib_pibase
 	public $cObj = array();
 	public $blogConf = array();
 	private $templateFileJS = null;
-	private $contentKey = null;
-	private $jsFiles = array();
-	private $js = array();
-	private $cssFiles = array();
-	private $css = array();
 	private $piFlexForm = array();
 	const DEFAULT_LANGUAGE = 'de';
 

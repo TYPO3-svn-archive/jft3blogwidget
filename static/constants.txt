@@ -16,7 +16,7 @@ plugin.tx_jft3blogwidget {
 
 
 
-	# cat=plugin.tx_jft3blogwidget/typo/010; type=options[Afrikaans=af, Arabic=ar, Algerian Arabic=ar-DZ, Azerbaijani (UTF-8)=az, Bulgarian=bg, Bosnian=bs, Catalan=ca, Czech=cs, Danish=da, German=de, Greek (el)=el, English/Australia=en-AU, English/UK=en-GB, English/New Zealand=en-NZ, Esperanto=eo, Espanol=es, Estonian=et, Euskarako=eu, Persian (Farsi)=fa, Finnish=fi, Faroese=fo, Swiss-French=fr-CH, French=fr, Galician=gl, Hebrew=he, Croatian=hr, Hungarian=hu, Armenian (UTF-8)=hy, Indonesian=id, Icelandic=is, Italian=it, Japanese=ja, Korean=ko, Kazakh=kz, Lithuanian (UTF-8)=lt, Latvian (UTF-8)=lv, Malayalam=ml, Malaysian=ms, Dutch (UTF-8)=nl, Norwegian=no, Polish=pl, Portuguese=pt, Brazilian=pt-BR, Romansh=rm, Romanian=ro, Russian (UTF-8)=ru, Slovak=sk, Slovenian=sl, Albanian=sq, Serbian (SR)=sr, Serbian (SR-SR)=sr-SR, Swedish=sv, Tamil=ta, Thai=th, Tajiki=tj, Turkish=tr, Ukrainian (UTF-8)=uk, Vietnamese=vi, Chinese (CN)=zh-CN, Chinese (HK)=zh-HK, Chinese (TW)=zh-TW]; label=Language: Set the language of the calendar
+	# cat=plugin.tx_jft3blogwidget/typo/010; type=options[Afrikaans=af, Arabic=ar, Algerian Arabic=ar-DZ, Azerbaijani (UTF-8)=az, Bulgarian=bg, Bosnian=bs, Catalan=ca, Czech=cs, Welsh/UK=cy-GB, Danish=da, German=de, Greek (el)=el, English/Australia=en-AU, English/UK=en-GB, English/New Zealand=en-NZ, Esperanto=eo, Espanol=es, Estonian=et, Euskarako=eu, Persian (Farsi)=fa, Finnish=fi, Faroese=fo, Swiss-French=fr-CH, French=fr, Galician=gl, Hebrew=he, Croatian=hr, Hungarian=hu, Armenian (UTF-8)=hy, Indonesian=id, Icelandic=is, Italian=it, Japanese=ja, Kazakh (UTF-8)=kk, Korean=ko, Kazakh=kz, Luxembourgish=lb, Lithuanian (UTF-8)=lt, Latvian (UTF-8)=lv, Macedonian=mk, Malayalam=ml, Malaysian=ms, Dutch (UTF-8)=nl, Dutch (Belgium)=nl-BE, Norwegian=no, Polish=pl, Portuguese=pt, Brazilian=pt-BR, Romansh=rm, Romanian=ro, Russian (UTF-8)=ru, Slovak=sk, Slovenian=sl, Albanian=sq, Serbian (SR)=sr, Serbian (SR-SR)=sr-SR, Swedish=sv, Tamil=ta, Thai=th, Tajiki=tj, Turkish=tr, Ukrainian (UTF-8)=uk, Vietnamese=vi, Chinese (CN)=zh-CN, Chinese (HK)=zh-HK, Chinese (TW)=zh-TW]; label=Language: Set the language of the calendar
 	language = de
 
 	# cat=plugin.tx_jft3blogwidget/typo/010; type=options[fast, normal, slow]; label=Speed of toggle: Defines the speed of the toggle animation
@@ -31,10 +31,10 @@ plugin.tx_jft3blogwidget {
 	file.jQueryLibrary = EXT:jft3blogwidget/res/jquery/js/jquery-1.7.1.min.js
 
 	# cat=plugin.tx_jft3blogwidget/file/030; type=file[js]; label=jQuery UI: Location of the jQuery UI
-	file.jQueryUI = EXT:jft3blogwidget/res/jquery/js/jquery-ui-1.8.16.custom.min.js
+	file.jQueryUI = EXT:jft3blogwidget/res/jquery/js/jquery-ui-1.8.17.custom.min.js
 
 	# cat=plugin.tx_jft3blogwidget/file/040; type=file[css]; label=jQuery UI style: Location of the jQuery UI CSS
-	file.jQueryUIstyle = EXT:jft3blogwidget/res/jquery/css/theme-1.8.16/jquery-ui-1.8.16.custom.css
+	file.jQueryUIstyle = EXT:jft3blogwidget/res/jquery/css/theme-1.8.17/jquery-ui-1.8.17.custom.css
 
 	# cat=plugin.tx_jft3blogwidget/file/050; type=string; label=Languagefile pattern: Pattern for the languagefile (jquerycalendar)
 	jQueryUIl18n = EXT:jft3blogwidget/res/jquery/js/i18n/jquery.ui.datepicker-###LANGUAGE###.js
@@ -45,6 +45,9 @@ plugin.tx_jft3blogwidget {
 	# cat=plugin.tx_jft3blogwidget/file/070; type=file[swf]; label=SWF-tagCloud: The used SWF-File of the tagCloud
 	file.tagCloudSWF = EXT:jft3blogwidget/res/tagcloud/tagcloud.swf
 
-	# cat=plugin.tx_jft3blogwidget/file/070; type=file[js]; label=JS-tagCloud: The used JS-File of the tagCloud
+	# cat=plugin.tx_jft3blogwidget/file/080; type=file[js]; label=JS-tagCloud: The used JS-File of the tagCloud
 	file.tagCloudJS = EXT:jft3blogwidget/res/tagcloud/swfobject.js
+
+	# cat=plugin.tx_jft3blogwidget/file/090; type=file[js]; label=Tag canvas JS-File: The used JS-File of the tagCanvas
+	file.tagCanvasJS = EXT:jft3blogwidget/res/tagcanvas/jquery.tagcanvas-1.12.min.js
 }

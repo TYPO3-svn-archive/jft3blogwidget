@@ -2,7 +2,7 @@
 /***************************************************************
 *  Copyright notice
 *
-*  (c) 2011 Juergen Furrer (juergen.furrer@gmail.com)
+*  (c) 2012 Juergen Furrer (juergen.furrer@gmail.com)
 *  All rights reserved
 *
 *  This script is part of the Typo3 project. The Typo3 project is
@@ -32,11 +32,12 @@ require_once(t3lib_extMgm::extPath('jft3blogwidget').'lib/class.tx_jft3blogwidge
  * @package TYPO3
  * @subpackage tx_jft3blogwidget
  */
-class tx_jft3blogwidget_tagcloud extends tagCloud
+class tx_jft3blogwidget_tagcanvas extends tagCloud
 {
-	public $prefixId      = 'tx_jft3blogwidget_tagcloud';
-	public $scriptRelPath = 'widgets/tx_jft3blogwidget_tagcloud/class.tx_jft3blogwidget_tagcloud.php';
+	public $prefixId      = 'tx_jft3blogwidget_tagcanvas';
+	public $scriptRelPath = 'widgets/tx_jft3blogwidget_tagcanvas/class.tx_jft3blogwidget_tagcanvas.php';
 	public $extKey        = 'jft3blogwidget';
+	public $conf          = array();
 	private $piFlexForm = array();
 
 	/**
@@ -60,62 +61,41 @@ class tx_jft3blogwidget_tagcloud extends tagCloud
 			$this->templateFileJS = $this->cObj->fileResource("EXT:jft3blogwidget/res/tx_jft3blogwidget.js");
 		}
 
-		if (! $templateCode = trim($this->cObj->getSubpart($this->templateFileJS, "###TEMPLATE_TAGCLOUD_JS###"))) {
-			$templateCode = $this->outputError("Template TEMPLATE_TAGCLOUD_JS is missing", true);
+		if (! $templateCode = trim($this->cObj->getSubpart($this->templateFileJS, "###TEMPLATE_TAGCANVAS_JS###"))) {
+			$templateCode = $this->outputError("Template TEMPLATE_TAGCANVAS_JS is missing", true);
 		}
 
 		$markerArray = array();
-
-		if (! is_numeric($this->conf['width'])) {
-			$this->conf['width'] = 200;
+		$options = array();
+		if (count($this->conf['tagCanvasOptions.']) > 0) {
+			foreach ($this->conf['tagCanvasOptions.'] as $key => $tagCanvasOption) {
+				if (is_array($this->conf['tagCanvasOptions.'][$key.'.'])) {
+					$options[] = $this->cObj->cObjGetSingle($this->conf['tagCanvasOptions.'][$key], $this->conf['tagCanvasOptions.'][$key.'.']);
+				} elseif (! preg_match("/\.$/", $key)) {
+					$options[] = $tagCanvasOption;
+				}
+			}
 		}
-		if (! is_numeric($this->conf['height'])) {
-			$this->conf['height'] = 200;
-		}
-		
-		if (! is_numeric($this->conf['speed'])) {
-			$this->conf['speed'] = 100;
-		}
-		if (! $this->conf['bgColor']) {
-			$this->conf['bgColor'] = 'ffffff';
-		}
-		if (! $this->conf['tagColor1']) {
-			$this->conf['tagColor1'] = '333333';
-		}
-		if (! $this->conf['tagColor2']) {
-			$this->conf['tagColor2'] = '999999';
-		}
-		if (! $this->conf['highlightColor']) {
-			$this->conf['highlightColor'] = '5599ff';
-		}
-
-		$markerArray["SWF_TAGCLOUD"] = $this->pagerenderer->getPath($this->conf['tagCloudSWF']);
-		$markerArray["WIDTH"]  = $this->conf['width'];
-		$markerArray["HEIGHT"] = $this->conf['height'];
-		$markerArray["SPEED"]  = $this->conf['speed'];
-		$markerArray["DISTR"]  = ($this->conf['distr'] ? 'true' : 'false');
-		$markerArray["WMODE"]  = $this->conf['wmode'];
-		$markerArray["BGCOLOR"] = $this->conf['bgColor'];
-		$markerArray["T_COLOR1"] = $this->conf['tagColor1'];
-		$markerArray["T_COLOR2"] = $this->conf['tagColor2'];
-		$markerArray["HI_COLOR"] = $this->conf['highlightColor'];
+		$markerArray['OPTIONS'] = implode(',', $options);
 
 		// Generate the tags
 		$link_code = $this->getTagCode();
 		$GLOBALS['TSFE']->register['taglinks'] = $link_code;
-		// Generate the xml for th SWF-Object
-		$markerArray["TAGLINKS"] = urlencode($this->cObj->cObjGetSingle($this->conf['tagcloudswf'], $this->conf['tagcloudswf.']));
-
 		// Set te Marks
 		$templateCode = $this->cObj->substituteMarkerArray($templateCode, $markerArray, '###|###', 0);
 
-		// Add Javascript
-		$this->pagerenderer->addJsFile($this->conf['tagCloudJS']);
+		// Add all CSS and JS files
+		if (T3JQUERY === true) {
+			tx_t3jquery::addJqJS();
+		} else {
+			$this->pagerenderer->addJsFile($this->archiveConf['jQueryLibrary']);
+		}
+		$this->pagerenderer->addJsFile($this->conf['tagCanvasJS']);
 		$this->pagerenderer->addJS($templateCode);
 
 		$this->pagerenderer->addResources();
 
-		$content = $this->cObj->cObjGetSingle($this->conf['tagcloud'], $this->conf['tagcloud.']);
+		$content = $this->cObj->cObjGetSingle($this->conf['tagcanvas'], $this->conf['tagcanvas.']);
 
 		return $content;
 	}
@@ -130,7 +110,7 @@ class tx_jft3blogwidget_tagcloud extends tagCloud
 		$link_rows = $this->getTagsArray();
 		$link_code = null;
 		for ($c=0; $c<sizeof($link_rows); $c++) {
-			$aTagParam = 'class="tag-link-' . $c . '" title="' . $link_rows[$c]['link_name'] . '" rel="tag" style="font-size: ' . $link_rows[$c]['link_size'] . 'pt;"';
+			$aTagParam = 'title="' . $link_rows[$c]['link_name'] . '" style="font-size: ' . $link_rows[$c]['link_size'] . 'pt;"';
 			$conf = array(
 				'additionalParams' => $link_rows[$c]['link_additionalParams'],
 				'parameter' => $link_rows[$c]['link_url'],
@@ -243,8 +223,8 @@ class tx_jft3blogwidget_tagcloud extends tagCloud
 	}
 }
 
-if (defined('TYPO3_MODE') && $TYPO3_CONF_VARS[TYPO3_MODE]['XCLASS']['ext/jft3blogwidget/widgets/tx_jft3blogwidget_tagcloud/class.tx_jft3blogwidget_tagcloud.php']) {
-	include_once($TYPO3_CONF_VARS[TYPO3_MODE]['XCLASS']['ext/jft3blogwidget/widgets/tx_jft3blogwidget_tagcloud/class.tx_jft3blogwidget_tagcloud.php']);
+if (defined('TYPO3_MODE') && $TYPO3_CONF_VARS[TYPO3_MODE]['XCLASS']['ext/jft3blogwidget/widgets/tx_jft3blogwidget_tagcanvas/class.tx_jft3blogwidget_tagcanvas.php']) {
+	include_once($TYPO3_CONF_VARS[TYPO3_MODE]['XCLASS']['ext/jft3blogwidget/widgets/tx_jft3blogwidget_tagcanvas/class.tx_jft3blogwidget_tagcanvas.php']);
 }
 
 ?>

@@ -2,12 +2,12 @@
 <T3locallang>
 	<meta type="array">
 		<type>module</type>
-		<description>Language labels for Trend widget</description>
+		<description>Language labels for tagCloud widget</description>
 	</meta>
 	<data type="array">
 		<languageKey index="default" type="array">
-			<label index="title">Tag cloud</label>
-			<label index="widgetSelector.description">Cloud with most popular words (jft3blogwidget)</label>
+			<label index="title">Flash-Cloud</label>
+			<label index="widgetSelector.description">Flash-Cloud with most popular words (jft3blogwidget)</label>
 			<label index="tagCloudTitle">Tag cloud</label>
 		</languageKey>
 	</data>

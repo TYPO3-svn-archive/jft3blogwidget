@@ -88,3 +88,15 @@ var flashvars = {
 var cumulusobject = swfobject;
 cumulusobject.embedSWF("###SWF_TAGCLOUD###?r="+rnumber, "jft3blogwidgettagcloud", "###WIDTH###", "###HEIGHT###", "9", "", flashvars, params,attributes);
 <!-- ###TEMPLATE_TAGCLOUD_JS### end -->
+
+
+
+<!-- ###TEMPLATE_TAGCANVAS_JS### begin -->
+jQuery(document).ready(function() {
+	if (! jQuery('#tagCanvas').tagcanvas({
+		###OPTIONS###
+	})) {
+		jQuery('#tagCanvas').hide();
+	}
+});
+<!-- ###TEMPLATE_TAGCANVAS_JS### end -->

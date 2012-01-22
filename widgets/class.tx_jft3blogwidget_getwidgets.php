@@ -42,7 +42,7 @@ class tx_jft3blogwidget_getwidgets
 			'tx_jft3blogwidget_jquerycalendar' => 'EXT:jft3blogwidget/widgets/tx_jft3blogwidget_jquerycalendar/',
 			'tx_jft3blogwidget_archive'        => 'EXT:jft3blogwidget/widgets/tx_jft3blogwidget_archive/',
 			'tx_jft3blogwidget_tagcloud'       => 'EXT:jft3blogwidget/widgets/tx_jft3blogwidget_tagcloud/',
-			
+			'tx_jft3blogwidget_tagcanvas'      => 'EXT:jft3blogwidget/widgets/tx_jft3blogwidget_tagcanvas/',
 		);
 	}
 }

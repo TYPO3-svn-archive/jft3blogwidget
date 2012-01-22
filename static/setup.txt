@@ -103,3 +103,79 @@ plugin.tx_t3blog_pi2 {
 }
 plugin.tx_t3blog_pi1.tx_jft3blogwidget_tagcloud < plugin.tx_t3blog_pi2.tx_jft3blogwidget_tagcloud
 
+
+
+plugin.tx_t3blog_pi2 {
+	tx_jft3blogwidget_tagcanvas {
+		includeLibs = EXT:jft3blogwidget/widgets/tx_jft3blogwidget_tagcanvas/class.tx_jft3blogwidget_tagcanvas.php
+
+		jQueryNoConflict = {$plugin.tx_jft3blogwidget.jQueryNoConflict}
+		jsInFooter = {$plugin.tx_jft3blogwidget.jsInFooter}
+		jsMinify = {$plugin.tx_jft3blogwidget.jsMinify}
+		jsInline = {$plugin.tx_jft3blogwidget.jsInline}
+		cssMinify = {$plugin.tx_jft3blogwidget.cssMinify}
+
+		jQueryLibrary = {$plugin.tx_jft3blogwidget.file.jQueryLibrary}
+		templateFileJS = {$plugin.tx_jft3blogwidget.file.templateFileJS}
+		tagCanvasJS = {$plugin.tx_jft3blogwidget.file.tagCanvasJS}
+
+		/* Here are all options with the default value
+		tagCanvasOptions.10 = TEXT
+		tagCanvasOptions.10.wrap = interval: |
+		tagCanvasOptions.10.value = 20
+		tagCanvasOptions.20 = maxSpeed: 0.05
+		tagCanvasOptions.30 = minSpeed: 0.0
+		tagCanvasOptions.40 = decel: 0.95
+		tagCanvasOptions.50 = minBrightness: 0.1
+		tagCanvasOptions.60 = textColour: '#ff99ff'
+		tagCanvasOptions.70 = textHeight: 15
+		tagCanvasOptions.80 = textFont: 'Helvetica, Arial, sans-serif'
+		tagCanvasOptions.90 = outlineColour: '#ffff99'
+		tagCanvasOptions.100 = outlineMethod: 'outline'
+		tagCanvasOptions.110 = outlineThickness: 2
+		tagCanvasOptions.120 = outlineOffset: 5
+		tagCanvasOptions.130 = pulsateTo: 1.0
+		tagCanvasOptions.140 = pulsateTime:3
+		tagCanvasOptions.150 = depth: 0.5
+		tagCanvasOptions.160 = initial: null
+		tagCanvasOptions.170 = freezeActive: false
+		tagCanvasOptions.180 = frontSelect: false
+		tagCanvasOptions.190 = txtOpt: true
+		tagCanvasOptions.200 = txtScale: 2
+		tagCanvasOptions.210 = reverse: false
+		tagCanvasOptions.220 = hideTags: false
+		tagCanvasOptions.230 = zoom: 1.0
+		tagCanvasOptions.240 = wheelZoom: true
+		tagCanvasOptions.250 = zoomStep: 0.05
+		tagCanvasOptions.260 = zoomMax: 3.0
+		tagCanvasOptions.270 = zoomMin: 0.3
+		tagCanvasOptions.280 = shadow: '#000000'
+		tagCanvasOptions.290 = shadowBlur: 0
+		tagCanvasOptions.300 = shadowOffset: [0,0]
+		tagCanvasOptions.310 = weight: false
+		tagCanvasOptions.320 = weightMode: 'size'
+		tagCanvasOptions.330 = weightSize: 1.0
+		tagCanvasOptions.340 = weightGradient: {0:'#f00', 0.33:'#ff0', 0.66:'#0f0', 1:'#00f'}
+		tagCanvasOptions.350 = weightFrom: null
+		tagCanvasOptions.360 = shape: 'sphere'
+		tagCanvasOptions.370 = lock: null
+		*/
+
+		tagCanvasOptions.60 = textColour: '#333333'
+		tagCanvasOptions.80 = textFont: 'Impact, Arial Black, sans-serif'
+		tagCanvasOptions.90 = outlineColour: '#5599ff'
+		tagCanvasOptions.210 = reverse: true
+		tagCanvasOptions.240 = wheelZoom: false
+		tagCanvasOptions.310 = weight: true
+
+		tagcanvas = COA
+		tagcanvas {
+			wrap = <canvas width="300" height="300" id="tagCanvas"> | </canvas>
+			10 = TEXT
+			10 {
+				data = register:taglinks
+			}
+		}
+	}
+}
+plugin.tx_t3blog_pi1.tx_jft3blogwidget_tagcanvas < plugin.tx_t3blog_pi2.tx_jft3blogwidget_tagcanvas
